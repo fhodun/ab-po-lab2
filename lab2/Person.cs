@@ -1,3 +1,5 @@
+using SQLite;
+
 namespace lab2;
 
 public enum SexType
@@ -8,19 +10,16 @@ public enum SexType
 
 public class Person
 {
-    private string _name;
-
-    public string Name
-    {
-        get { return _name; }
-        set { _name = value; }
-    }
-
-    private string Surname { get; set; }
-    private SexType Sex { get; set; }
+    [PrimaryKey, AutoIncrement]
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Surname { get; set; }
+    public SexType Sex { get; set; }
     public int BirthYear { get; private set; }
-    private int Age => new DateTime().Year - (Sex == SexType.Female ? (BirthYear - 5) : BirthYear);
+    public int Age => new DateTime().Year - (Sex == SexType.Female ? (BirthYear - 5) : BirthYear);
 
+    public Person() { } // for SQLite
+    
     /// <param name="sex">0 - Male; 1 - Female</param>
     public Person(string name, string surname, int birthYear, bool sex)
     {
