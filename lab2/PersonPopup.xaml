@@ -3,20 +3,17 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               xmlns:lab2="http://schemas.microsoft.com/dotnet/maui/global"
-               x:TypeArguments="lab2:Person"
+               xmlns:local="clr-namespace:lab2"
+               x:TypeArguments="local:Person"
                x:Class="lab2.PersonPopup">
     <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Person" FontSize="20" />
+        <Label Text="Osoba" FontSize="20" />
 
         <Entry x:Name="NameEntry" Placeholder="Name" />
         <Entry x:Name="SurnameEntry" Placeholder="Surname" />
         <Entry x:Name="BirthYearEntry" Placeholder="Birth year" Keyboard="Numeric" />
 
-        <Picker x:Name="SexPicker" Title="Sex">
-            <x:String>Male</x:String>
-            <x:String>Female</x:String>
-        </Picker>
+        <Picker x:Name="SexPicker" Title="Wybierz płeć" ItemDisplayBinding="{Binding Label}" />
 
         <HorizontalStackLayout Spacing="12" HorizontalOptions="End">
             <Button x:Name="CancelBtn" Text="Cancel" Clicked="CancelBtn_OnClicked" />

@@ -21,6 +21,10 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
-        return builder.Build();
+        var app = builder.Build();
+        
+        SQLitePCL.Batteries_V2.Init();
+
+        return app;
     }
 }

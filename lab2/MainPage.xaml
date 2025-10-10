@@ -7,7 +7,7 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            
+            <Button x:Name="AddPersonBtn" Text="Dodaj osobę" Clicked="AddPersonBtn_OnClicked" />
         </VerticalStackLayout>
     </ScrollView>
 

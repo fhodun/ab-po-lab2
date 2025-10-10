@@ -9,11 +9,19 @@ using CommunityToolkit.Maui.Views;
 
 namespace lab2;
 
-public partial class PersonPopup : Popup<Person?>
+public record SexOption(SexType Key, string Label);
+
+public partial class PersonPopup : Popup<Person>
 {
     public PersonPopup(Person? model = null)
     {
         InitializeComponent();
+
+        SexPicker.ItemsSource = new[]
+        {
+            new SexOption(SexType.Male, "Mężczyzna"),
+            new SexOption(SexType.Female, "Kobieta")
+        };
 
         if (model == null)
         {
@@ -23,12 +31,13 @@ public partial class PersonPopup : Popup<Person?>
         NameEntry.Text = model.Name;
         SurnameEntry.Text = model.Surname;
         BirthYearEntry.Text = model.BirthYear.ToString();
-        SexPicker.SelectedItem = model.Sex.ToString();
+        var options = (IEnumerable<SexOption>)SexPicker.ItemsSource;
+        SexPicker.SelectedItem = options.FirstOrDefault(o => o.Key == model.Sex);
     }
-    
-    private async Task<CancellationTokenSource> ShowToast(string text, bool sementic = true)
+
+    private async Task<CancellationTokenSource> ShowToast(string text, bool semantic = true)
     {
-        if (sementic) SemanticScreenReader.Announce(text);
+        if (semantic) SemanticScreenReader.Announce(text);
 
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         var toast = Toast.Make(text, ToastDuration.Short, 16);
