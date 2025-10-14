@@ -69,4 +69,11 @@ public partial class PersonPopup : Popup<Person>
     {
         await CloseAsync();
     }
+
+    private void ClearBtn_OnClicked(object? sender, EventArgs e)
+    {
+        NameEntry.Text = string.Empty;
+        SurnameEntry.Text = string.Empty;
+        BirthYearEntry.Text = string.Empty;
+    }
 }

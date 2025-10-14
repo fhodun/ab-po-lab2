@@ -6,7 +6,7 @@
                xmlns:local="clr-namespace:lab2"
                x:TypeArguments="local:Person"
                x:Class="lab2.PersonPopup">
-    <VerticalStackLayout Padding="16" Spacing="12">
+    <VerticalStackLayout Padding="16" Spacing="12" WidthRequest="400">
         <Label Text="Osoba" FontSize="20" />
 
         <Entry x:Name="NameEntry" Placeholder="Name" />
@@ -17,6 +17,7 @@
 
         <HorizontalStackLayout Spacing="12" HorizontalOptions="End">
             <Button x:Name="CancelBtn" Text="Cancel" Clicked="CancelBtn_OnClicked" />
+            <Button x:Name="ClearBtn" Text="Cancel" Clicked="ClearBtn_OnClicked" />
             <Button x:Name="SaveBtn" Text="Save" Clicked="SaveBtn_OnClicked" />
         </HorizontalStackLayout>
     </VerticalStackLayout>

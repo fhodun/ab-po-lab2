@@ -1,14 +1,48 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:lab2"
              x:Class="lab2.MainPage">
-
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
             <Button x:Name="AddPersonBtn" Text="Dodaj osobę" Clicked="AddPersonBtn_OnClicked" />
+            <CollectionView x:Name="PersonList"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Person">
+                        <Border
+                            Stroke="#E0E0E0"
+                            StrokeThickness="1"
+                            BackgroundColor="White"
+                            StrokeShape="RoundRectangle 12"
+                            Margin="8"
+                            Padding="16">
+                            <Border.Shadow>
+                                <Shadow
+                                    Brush="#33000000"
+                                    Opacity="1"
+                                    Offset="5,5"
+                                    Radius="10" />
+                            </Border.Shadow>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Grid.Column="0">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" />
+                                    <Label Text="{Binding Surname}" FontSize="14" />
+                                    <Label Text="{Binding Sex}" FontSize="14" />
+                                    <Label Text="{Binding Age, StringFormat='Wiek: {0} lat'}" FontSize="14" />
+                                </VerticalStackLayout>
+                                <Button x:Name="PersonMenuBtn" Grid.Column="1" Text="⋮" FontSize="18" Padding="0"
+                                        WidthRequest="30"
+                                        HorizontalOptions="End" VerticalOptions="Center"
+                                        Clicked="PersonMenuBtn_OnClicked" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
