@@ -18,6 +18,7 @@ public partial class MainPage : ContentPage
         var persons = await App.Database.GetPersonsAsync();
         PersonList.ItemsSource = persons;
     }
+
     private async Task<CancellationTokenSource> ShowToast(string text, bool sementic = true)
     {
         if (sementic) SemanticScreenReader.Announce(text);
@@ -27,11 +28,11 @@ public partial class MainPage : ContentPage
         await toast.Show(cancellationTokenSource.Token);
         return cancellationTokenSource;
     }
+
     private async void AddPersonBtn_OnClicked(object? sender, EventArgs e)
     {
         var popup = new PersonPopup();
         IPopupResult<Person> result = await this.ShowPopupAsync<Person>(popup);
-        await ShowToast(result.ToString());
 
         if (result.WasDismissedByTappingOutsideOfPopup)
         {
@@ -44,6 +45,7 @@ public partial class MainPage : ContentPage
         }
 
         await App.Database.SavePersonAsync(result.Result);
+        await ReloadPeopleAsync();
     }
 
     private async void PersonMenuBtn_OnClicked(object? sender, EventArgs e)
@@ -61,12 +63,12 @@ public partial class MainPage : ContentPage
             // edycja w popupie (zakładam, że PersonPopup ma ctor z Person)
             var popup = new PersonPopup(person);
             var result = await this.ShowPopupAsync<Person>(popup);
-
-            if (result.Result is Person updated)
-            {
-                await App.Database.SavePersonAsync(updated);
-                await ReloadPeopleAsync();
-            }
+            if(result.WasDismissedByTappingOutsideOfPopup)
+                return;
+            if (result.Result == null)
+                return;
+            ShowToast(result.Result.Id.ToString());
+            await App.Database.SavePersonAsync(result.Result);
         }
         else if (choice == "Usuń")
         {
@@ -78,9 +80,10 @@ public partial class MainPage : ContentPage
             if (confirm)
             {
                 await App.Database.DeletePersonAsync(person);
-                await ReloadPeopleAsync();
                 await ShowToast("Usunięto");
             }
         }
+
+        await ReloadPeopleAsync();
     }
 }

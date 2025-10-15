@@ -32,6 +32,7 @@
                                     <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" />
                                     <Label Text="{Binding Surname}" FontSize="14" />
                                     <Label Text="{Binding Sex}" FontSize="14" />
+                                    <Label Text="{Binding BirthYear, StringFormat='Rok urodzenia: {0}'}" FontSize="14" />
                                     <Label Text="{Binding Age, StringFormat='Wiek: {0} lat'}" FontSize="14" />
                                 </VerticalStackLayout>
                                 <Button x:Name="PersonMenuBtn" Grid.Column="1" Text="⋮" FontSize="18" Padding="0"

@@ -8,21 +8,28 @@ public class Database
 
     public Database(string dbPath)
     {
-        _db = new SQLiteAsyncConnection(dbPath);
+        if (_db is not null)
+            return;
+
+        _db = new SQLiteAsyncConnection(dbPath, Constants.Flags);
         _db.CreateTableAsync<Person>().Wait();
     }
-
-    public Task<List<Person>> GetPersonsAsync() =>
-        _db.Table<Person>().ToListAsync();
-
-    public Task<int> SavePersonAsync(Person person)
+    public async Task<List<Person>> GetPersonsAsync()
+    {
+        return await _db.Table<Person>().ToListAsync();
+    }
+    public async Task<Person> GetPersonAsync(int id)
+    {
+        return await _db.Table<Person>().Where(i => i.Id == id).FirstOrDefaultAsync();
+    }
+    public async Task<int> SavePersonAsync(Person person)
     {
         if (person.Id != 0)
-            return _db.UpdateAsync(person);
-        else
-            return _db.InsertAsync(person);
+            return await _db.UpdateAsync(person);
+        return await _db.InsertAsync(person);
     }
-
-    public Task<int> DeletePersonAsync(Person person) =>
-        _db.DeleteAsync(person);
+    public async Task<int> DeletePersonAsync(Person person)
+    {
+        return await _db.DeleteAsync(person);
+    }
 }

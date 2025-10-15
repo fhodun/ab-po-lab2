@@ -2,7 +2,7 @@
 
 public partial class App : Application
 {
-    static Database _database;
+    static Database? _database;
 
     public static Database Database
     {
@@ -10,10 +10,7 @@ public partial class App : Application
         {
             if (_database == null)
             {
-                string dbPath = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "lab2.sqlite");
-                _database = new Database(dbPath);
+                _database = new Database(Constants.DatabasePath);
             }
 
             return _database;

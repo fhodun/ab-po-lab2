@@ -15,8 +15,8 @@ public class Person
     public string Name { get; set; }
     public string Surname { get; set; }
     public SexType Sex { get; set; }
-    public int BirthYear { get; private set; }
-    public int Age => new DateTime().Year - (Sex == SexType.Female ? (BirthYear - 5) : BirthYear);
+    public int BirthYear { get; set; }
+    public int Age => System.DateTime.Now.Year - (Sex == SexType.Female ? (BirthYear - 5) : BirthYear);
 
     public Person() { } // for SQLite
     

@@ -13,6 +13,7 @@ public record SexOption(SexType Key, string Label);
 
 public partial class PersonPopup : Popup<Person>
 {
+    private Person _person = new();
     public PersonPopup(Person? model = null)
     {
         InitializeComponent();
@@ -27,6 +28,8 @@ public partial class PersonPopup : Popup<Person>
         {
             return;
         }
+
+        _person = model;
 
         NameEntry.Text = model.Name;
         SurnameEntry.Text = model.Surname;
@@ -49,20 +52,18 @@ public partial class PersonPopup : Popup<Person>
     {
         if (!int.TryParse(BirthYearEntry.Text, out var year))
         {
-            await ShowToast("Uzupełnij drugie pole");
+            await ShowToast("Uzupełnij date urodzenia");
             return;
         }
 
         var sex = (SexType)(SexPicker.SelectedItem?.ToString() == "Female" ? 1 : 0);
 
-        var result = new Person(
-            name: NameEntry.Text?.Trim() ?? string.Empty,
-            surname: SurnameEntry.Text?.Trim() ?? string.Empty,
-            birthYear: year,
-            sex: sex
-        );
+        _person.Name = NameEntry.Text?.Trim() ?? string.Empty;
+        _person.Surname = SurnameEntry.Text?.Trim() ?? string.Empty;
+        _person.BirthYear = year;
+        _person.Sex = sex;
 
-        await CloseAsync(result);
+        await CloseAsync(_person);
     }
 
     private async void CancelBtn_OnClicked(object? sender, EventArgs e)

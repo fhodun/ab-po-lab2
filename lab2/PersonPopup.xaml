@@ -17,7 +17,7 @@
 
         <HorizontalStackLayout Spacing="12" HorizontalOptions="End">
             <Button x:Name="CancelBtn" Text="Cancel" Clicked="CancelBtn_OnClicked" />
-            <Button x:Name="ClearBtn" Text="Cancel" Clicked="ClearBtn_OnClicked" />
+            <Button x:Name="ClearBtn" Text="Wyczyść" Clicked="ClearBtn_OnClicked" />
             <Button x:Name="SaveBtn" Text="Save" Clicked="SaveBtn_OnClicked" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
