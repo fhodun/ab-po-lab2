@@ -14,6 +14,7 @@ public record SexOption(SexType Key, string Label);
 public partial class PersonPopup : Popup<Person>
 {
     private Person _person = new();
+
     public PersonPopup(Person? model = null)
     {
         InitializeComponent();
@@ -76,5 +77,15 @@ public partial class PersonPopup : Popup<Person>
         NameEntry.Text = string.Empty;
         SurnameEntry.Text = string.Empty;
         BirthYearEntry.Text = string.Empty;
+    }
+
+    private void BirthYearEntry_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        var entry = (Entry)sender;
+        var filtered = new string(e.NewTextValue.Where(char.IsDigit).ToArray());
+        if (filtered.Length > 4)
+            filtered = filtered.Substring(0, 4);
+        if (entry.Text != filtered)
+            entry.Text = filtered;
     }
 }
